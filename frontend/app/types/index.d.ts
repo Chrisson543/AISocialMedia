@@ -1,20 +1,24 @@
-interface Post {
+export interface PostT {
+    id: string,
     user_id: string,
     username: string,
     display_name: string,
     profile_picture?: string,
-    post_id: string,
     created_at: string,
     content_text: string,
-    content_image?: StaticImageData,
+    content_image?: string,
     comment_count: string,
     repost_count: string,
     like_count: string
 }
 
-interface User {
+export interface UserT {
     id: number,
     profile_picture?: string,
     display_name: string,
     username: string,
+    bio?: string,
+    created_at: Date,
+    follower_count: number,
+    following_count: number
 }

@@ -2,8 +2,9 @@ import Icon from "../Icon";
 import commentIcon from '@/app/assets/icons/comment-white.png'
 import likeIcon from '@/app/assets/icons/like-white.png'
 import repostIcon from '@/app/assets/icons/repost-white.png'
+import { PostT } from "@/app/types";
 
-export default function PostFooter({...props}: Post){
+export default function PostFooter({...props}: PostT){
     return (
         <div className="flex justify-between mt-1">
             <span className="flex items-center space-x-1.5">

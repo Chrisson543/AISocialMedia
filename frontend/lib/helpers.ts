@@ -1,5 +1,5 @@
 import { format } from "date-fns";
 
 export function formatDate(date: string | number | Date){
-    return format(date, 'MMM dd')
+    return format(date, 'MMM dd HH:mm')
 }
