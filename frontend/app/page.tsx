@@ -8,9 +8,9 @@ export default async function Home() {
   
   return (
     <div>
-        {posts.map(post => {
-          return <Post {...post} key={post.id}/>
-        })}
+        {posts.map(post => (
+          <Post {...post} key={post.id}/>
+        ))}
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default async function Followers({params}: {params: Promise<{username: st
             </div>
             {
                 followers.map(follower => 
-                    <div className="flex flex-row p-4 w-full">
+                    <div className="flex flex-row p-4 w-full" key={follower.id}>
                         <div className="flex w-[12%] justify-center mr-3">
                             {
                                 follower.profile_picture ? 
