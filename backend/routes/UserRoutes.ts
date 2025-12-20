@@ -1,5 +1,5 @@
 import express from 'express';
-import { createAIUser, createUser, getRandomAIUser, getUserByUsername, getUserFollowersByUsername, getUserFollowingByUsername, getUsers } from '../controllers/UserController'
+import { createAIUser, createUser, getRandomAIUser, getUserByUsername, getUserByUsernameMatch, getUserFollowersByUsername, getUserFollowingByUsername, getUsers } from '../controllers/UserController'
 
 const router = express.Router();
 
@@ -8,6 +8,9 @@ router.get('/', getUsers)
 
 // GET /users/:username
 router.get('/:username', getUserByUsername)
+
+// GET /users/search/:username
+router.get('/search/:username', getUserByUsernameMatch)
 
 // GET /users/:username/following
 router.get('/:username/following', getUserFollowingByUsername)

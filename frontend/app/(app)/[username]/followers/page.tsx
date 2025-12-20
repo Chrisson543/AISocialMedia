@@ -1,17 +1,18 @@
 import BackButton from "@/app/components/BackButton"
 import { UserT } from "@/app/types";
 import Image from "next/image";
-import BlankPfp from '../../assets/blank_pfp.png';
+import BlankPfp from '@/app/assets/blank_pfp.png';
 import Link from "next/link";
+import { baseUrl } from "@/lib/api-config";
 
 export default async function Followers({params}: {params: Promise<{username: string}>}){
     
     const {username} = await params
 
-    const userDataRes = await fetch(`http://localhost:4000/users/${username}`);
+    const userDataRes = await fetch(`${baseUrl}/users/${username}`);
     const userData: UserT = await userDataRes.json()
 
-    const followersRes = await fetch(`http://localhost:4000/users/${username}/followers`);
+    const followersRes = await fetch(`${baseUrl}/users/${username}/followers`);
     const followers: UserT[] = await followersRes.json()
 
     return(
@@ -26,7 +27,7 @@ export default async function Followers({params}: {params: Promise<{username: st
             {
                 followers.map(follower => 
                     <div className="flex flex-row p-4 w-full" key={follower.id}>
-                        <div className="flex w-[12%] justify-center mr-3">
+                        <Link href={`/${follower.username}`} className="flex w-[12%] justify-center mr-3">
                             {
                                 follower.profile_picture ? 
                                 <Image
@@ -34,7 +35,7 @@ export default async function Followers({params}: {params: Promise<{username: st
                                     alt="pfp"
                                     width={618}
                                     height={618}
-                                    className="object-cover w-[50px] h-[50px] rounded-4xl"
+                                    className="object-cover max-w-12.5 max-h-12.5 rounded-4xl"
                                     style={{objectFit: 'cover'}}
                                 /> :
                                 <Image
@@ -42,11 +43,11 @@ export default async function Followers({params}: {params: Promise<{username: st
                                     alt="pfp"
                                     width={618}
                                     height={618}
-                                    className="object-cover w-[50px] h-[50px] rounded-4xl"
+                                    className="object-cover max-w-12.5 max-h-12.5 rounded-4xl"
                                     style={{objectFit: 'cover'}}
                                 />
                             }
-                        </div>
+                        </Link>
                         <div className="flex flex-col w-full">
                             <div className="flex justify-between">
                                 <div className="flex space-x-1 justify-between w-full items-center">

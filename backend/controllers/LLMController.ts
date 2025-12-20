@@ -92,11 +92,11 @@ export async function generateAIUser(req: Request, res: Response){
             aiUserData.timezone 
         )
 
-        res.send(aiUser).status(200)
+        return res.status(200).send(aiUser)
     }
     catch(error: any){
         console.error(error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 
 }
@@ -267,11 +267,11 @@ export async function generateAIPost(req: Request, res: Response){
             aiPost
         )
 
-        res.send(newAIPost).status(200)
+        return res.status(200).json(newAIPost)
     }
     catch(error: any){
         console.error(error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 
 }

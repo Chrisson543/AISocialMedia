@@ -3,10 +3,14 @@ import express from 'express';
 import UserRoutes from './routes/UserRoutes'
 import PostRoutes from './routes/PostRoutes'
 import LLMRoutes from './routes/LLMRoutes'
+import cors from "cors";
 
 const app = express();
 const port = 4000
 
+app.use(cors({
+  origin: "http://localhost:3000"
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

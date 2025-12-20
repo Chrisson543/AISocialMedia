@@ -1,29 +1,34 @@
 "use client"
 
-import { useState } from "react";
+import { JSX, useState } from "react";
 
-type TabViews = {[key: string]: any[]}
+type TabViews = {name: string, items: (JSX.Element | null)[]}[]
+
 
 export default function Tabs({tabViews}: {tabViews: TabViews}){
     
     
     type TabViewsKey = keyof typeof tabViews;
-    const [selectedView, setSelectedView] = useState<TabViewsKey>(Object.keys(tabViews)[0])
+    const firstTabName = Object.keys(tabViews)[0]
+    const tabNames = tabViews.map(view => view.name)
+    const [selectedView, setSelectedView] = useState<string>(tabViews[0].name)
     
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full w-full">
             <div className="flex space-x-5 font-bold p-6 text-gray-500">
                 {
-                    (Object.keys(tabViews) as TabViewsKey[]).map((view: TabViewsKey) => (
-                        <button key={view} onClick={() => {setSelectedView(view)}} className={selectedView == view ?"border-b-4 border-blue-400 text-white" : ""}>
-                            {String(view).charAt(0).toUpperCase() + String(view).slice(1)}
-                        </button>
-                    ))
+                    tabViews.map(view => {
+                        return (
+                            <button key={view.name} onClick={() => {setSelectedView(view.name)}} className={selectedView == view.name ?"border-b-4 border-blue-400 text-white" : ""}>
+                                {view.name}
+                            </button>
+                        )
+                    })
                 }
             </div>
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full w-full">
                 {
-                    tabViews[selectedView].length > 0 ? tabViews[selectedView] : <div className="flex w-full h-full items-center justify-center font-bold text-2xl">No Posts</div>
+                    tabViews.find(view => view.name == selectedView)!.items.length > 0 ? tabViews.find(view => view.name == selectedView)!.items : <div className="flex w-full h-full items-center justify-center font-bold text-2xl">No Posts</div>
                 }
             </div>
         </div>

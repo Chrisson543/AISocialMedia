@@ -8,11 +8,11 @@ export async function createNewPost(req: Request, res: Response){
 
         const row = await createNewPostF(userId, contentText, contentImage)
 
-        res.json(row).status(200);
+        return res.status(200).json(row);
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }
 
@@ -38,11 +38,11 @@ export async function getPosts(req: Request, res: Response){
         `
         const {rows} = await db.query(query)
 
-        res.json(rows).status(200);
+        return res.status(200).json(rows);
     }
     catch (error: any){
-        console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        console.log('error: ', error);
+        return res.status(400).json(error);
     }
 }
 
@@ -71,10 +71,10 @@ export async function getPostsForUser(req: Request, res: Response){
         `
         const {rows} = await db.query(query,[username])
 
-        res.json(rows).status(200);
+        return res.status(200).json(rows);
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }

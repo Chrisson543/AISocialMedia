@@ -1,10 +1,8 @@
 import Image from "next/image";
-import PostFooter from "./PostFooter";
-import PostHeader from "./PostHeader";
-import BlankPfp from '../../assets/blank_pfp.png';
+import BlankPfp from '@/app//assets/blank_pfp.png';
 import { PostT } from "@/app/types";
 import commentIcon from '@/app/assets/icons/comment-white.png'
-import Icon from "../Icon";
+import Icon from "@/app/components/Icon";
 import repostIcon from '@/app/assets/icons/repost-white.png'
 import likeIcon from '@/app/assets/icons/like-white.png'
 import Link from "next/link";
@@ -14,7 +12,7 @@ import optionIcon from '@/app/assets/icons/option-white.png';
 export default function Post({ ...props}: PostT){
     return (
         <div className="bg-black flex flex-row p-4 w-full border-y border-gray-600">
-            <div className="flex w-[12%] justify-center mr-3">
+            <Link href={`/${props.username}`} className="flex w-[12%] justify-center mr-3">
                 {
                     props.profile_picture ? 
                     <Image
@@ -22,7 +20,7 @@ export default function Post({ ...props}: PostT){
                         alt="pfp"
                         width={618}
                         height={618}
-                        className="object-cover w-[50px] h-[50px] rounded-4xl"
+                        className="object-cover max-w-12.5 max-h-12.5 rounded-4xl"
                         style={{objectFit: 'cover'}}
                     /> :
                     <Image
@@ -30,24 +28,27 @@ export default function Post({ ...props}: PostT){
                         alt="pfp"
                         width={618}
                         height={618}
-                        className="object-cover w-[50px] h-[50px] rounded-4xl"
+                        className="object-cover max-w-12.5 max-h-12.5 rounded-4xl"
                         style={{objectFit: 'cover'}}
                     />
                 }
-            </div>
+            </Link>
             <div className="flex flex-col w-full">
-                <div className="flex justify-between">
-                    <div className="flex space-x-1">
-                        <Link href={`/${props.username}`} className=" max-w-[70%]">
-                            <p className="space-x-1 truncate"><span className="font-bold">{props.display_name}</span><span className="text-gray-500">@{props.username.replace(/^@/, "")}</span></p>
+                <div className="flex justify-between w-full">
+                    <div className="flex space-x-1 w-[90%]">
+                        <Link href={`/${props.username}`} className="flex flex-wrap space-x-1.5">
+                            <p className="space-x-1 font-bold">{props.display_name}</p>
+                            <p className="space-x-1 text-gray-500">
+                                @{props.username.replace(/^@/, "")}
+                                <span className="text-gray-500">&middot; {formatDate(props.created_at)}</span>
+                            </p>
                         </Link>
-                        <p className="text-gray-500">&middot; {formatDate(props.created_at)}</p>
                     </div>
-                    <div>
-                        <Icon path={optionIcon} size={{width: 'auto', height: 20}} />
+                    <div className="flex w-[10%] justify-end">
+                        <Icon path={optionIcon} size={{width: 25, height: 'auto'}} />
                     </div>
                 </div>
-                <div className="mt-1 pr-7">
+                <div className="mt-1 pr-7 w-full">
                     <p>{props.content_text}</p>
                     {
                         props.content_image && 
@@ -61,7 +62,7 @@ export default function Post({ ...props}: PostT){
                         />
                     }
                 </div>
-                <div className="flex justify-between mt-1">
+                <div className="flex justify-between mt-1 w-full">
                     <span className="flex items-center space-x-1.5">
                         <Icon path={commentIcon} size={{width: 'auto', height: 20}} />
                         <p>{props.comment_count}</p>

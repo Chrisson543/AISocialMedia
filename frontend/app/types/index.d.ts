@@ -1,5 +1,6 @@
 export interface PostT {
-    id: string,
+    post_id: string,
+    id?: string,
     user_id: string,
     username: string,
     display_name: string,
@@ -21,4 +22,5 @@ export interface UserT {
     created_at: Date,
     follower_count: number,
     following_count: number
+    background_image: string
 }

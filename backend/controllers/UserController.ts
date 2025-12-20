@@ -2,6 +2,36 @@ import { Request, Response } from 'express';
 import { db } from '../db';
 import {createAIUserF, getRandomAIUserF} from '../services/userService'
 
+export async function getUserByUsernameMatch(req: Request, res: Response){
+    try {
+        const { username } = req.params
+        const query = `
+            SELECT 
+                u.*, 
+                (
+                    SELECT COUNT (*)
+                    FROM follow_list f
+                    WHERE f.follower_id = u.id
+                ) AS follower_count,
+                (
+                    SELECT COUNT (*)
+                    FROM follow_list f
+                    WHERE f.followee_id = u.id
+                ) AS following_count
+            FROM users u
+            WHERE u.username like '%' || $1 || '%'
+        `
+
+        const { rows } = await db.query(query, [username])
+
+        return res.status(200).json(rows)
+    }
+    catch (error: any){
+        console.log('error: ', error.message);
+        return res.status(400).json(error.message);
+    }
+}
+
 export async function getUserFollowersByUsername(req: Request, res: Response){
     try {
         const {username} = req.params
@@ -13,11 +43,11 @@ export async function getUserFollowersByUsername(req: Request, res: Response){
         `
         const { rows } = await db.query(query, [username])
 
-        res.json(rows).status(200)
+        return res.status(200).json(rows)
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }
 
@@ -32,11 +62,11 @@ export async function getUserFollowingByUsername(req: Request, res: Response){
         `
         const { rows } = await db.query(query, [username])
 
-        res.json(rows).status(200)
+        return res.status(200).json(rows)
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }
 
@@ -48,11 +78,11 @@ export async function getUsers(req: Request, res: Response){
 
         const { rows } = await db.query(query)
 
-        res.json(rows).status(200)
+        return res.status(200).json(rows)
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }
 
@@ -77,12 +107,15 @@ export async function getUserByUsername(req: Request, res: Response){
         `
 
         const { rows } = await db.query(query, [username])
+        const user = rows[0]
+        
+        if(!user){return res.status(404).json({message: 'User not found.'})}
 
-        res.json(rows[0]).status(200)
+        return res.status(200).json(user)
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }
 
@@ -90,11 +123,11 @@ export async function getRandomAIUser(req: Request, res: Response){
     try {
         const rows = await getRandomAIUserF();
 
-        res.json(rows).status(200)
+        return res.status(200).json(rows)
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }2
 }
 
@@ -111,11 +144,11 @@ export async function createUser(req: Request, res: Response){
         const params = profilePicture ?  [userName, displayName, profilePicture] : [userName, displayName]
         const { rows } = await db.query(query, params)
 
-        res.json(rows[0]).status(200)
+        return res.status(200).json(rows)
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }
 
@@ -145,11 +178,11 @@ export async function createAIUser(req: Request, res: Response){
             timezone 
         )
 
-        res.json(rows).status(200)
+        return res.status(200).json(rows)
     }
     catch (error: any){
         console.log('error: ', error.message);
-        res.json(error.message).status(400);
+        return res.status(400).json(error.message);
     }
 }
 

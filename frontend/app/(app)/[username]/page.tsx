@@ -1,14 +1,16 @@
 import Image from "next/image";
-import { PostT, UserT } from "../types";
-import Icon from "../components/Icon";
-import BlankPfp from '../assets/blank_pfp.png'
+import { PostT, UserT } from "@/app/types";
+import Icon from "@/app/components/Icon";
+import BlankPfp from '@/app/assets/blank_pfp.png';
 import optionIcon from '@/app/assets/icons/option-white.png';
 import calendarIcon from '@/app/assets/icons/calendar-grey.png';
 import { format } from "date-fns";
-import BackButton from "../components/BackButton";
-import Post from "../components/posts/Post";
-import Tabs from "../components/Tabs";
+import BackButton from "@/app//components/BackButton";
+import Post from "@/app/components/Post";
+import Tabs from "@/app/components/Tabs";
 import Link from "next/link";
+import { baseUrl } from "@/lib/api-config";
+import { notFound } from "next/navigation";
 
 export default async function Page({
   params,
@@ -17,22 +19,32 @@ export default async function Page({
 }){
     const { username } = await params;
 
-    const userDataRes = await fetch(`http://localhost:4000/users/${username}`);
-    const userData: UserT = await userDataRes.json()
+    const userDataRes = await fetch(`${baseUrl}/users/${username}`);
 
-    const userPostsRes = await fetch(`http://localhost:4000/posts/${username}`);
+    if (!userDataRes.ok) {
+        notFound()
+    }
+    const userData: UserT = await userDataRes.json();
+
+    const userPostsRes = await fetch(`${baseUrl}/posts/${username}`);
     const userPosts: PostT[] = await userPostsRes.json()
 
-    const tabViews = {
-            posts: userPosts.map(post =>
+    const tabViews = [
+            {
+                name: 'Posts',
+                items: userPosts.map(post =>
                         <Post {...post} key={post.id}/>
-                    ),
-            media: userPosts
+                    )
+            },
+            {
+                name: 'Media',
+                items: userPosts
                     .filter(post => post.content_image)
                     .map(post =>
                         post.content_image ? (<Post {...post} key={post.id}/>) : null
                     )
-        }
+            }
+        ]
 
     return(
         <div className="flex flex-col w-full h-full bg-black">
@@ -47,7 +59,7 @@ export default async function Page({
                     </div>
                     <div className="w-full">
                         <Image 
-                            src={'https://replogleglobes.com/app/uploads/2022/08/how-many-planets-in-our-solar-system.jpg'}
+                            src={userData.background_image !== null ? userData.background_image : 'https://replogleglobes.com/app/uploads/2022/08/how-many-planets-in-our-solar-system.jpg'}
                             width={1024}
                             height={576}
                             alt="header"
@@ -83,7 +95,7 @@ export default async function Page({
                             </span>
                         </div>
                         <div className="text-[#878787] flex space-x-3">
-                            <Link href={`/${username}/followers`}>
+                            <Link href={`/${username}/following`}>
                                 <p><span className="text-white font-bold">{userData.following_count}</span> Following</p>
                             </Link>
                             
