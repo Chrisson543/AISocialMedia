@@ -1,4 +1,3 @@
-// api/index.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import serverlessHttp from 'serverless-http';
 import app from '../app';

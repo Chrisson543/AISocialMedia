@@ -19,7 +19,6 @@ export async function apiFetch<TResponse, TBody = unknown>(
   url: string,
   options: ApiFetchOptions<TBody>
 ): Promise<TResponse> {
-  console.log(baseUrl)
   const cookieStore = await cookies();
   const cookieHeader = cookieStore
     .getAll()
