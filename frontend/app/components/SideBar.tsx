@@ -10,7 +10,7 @@ import BlankPfp from '@/app/assets/blank_pfp.png';
 import optionIcon from '@/app/assets/icons/option-white.png';
 import newPost from '@/app/assets/icons/new-post.png';
 import { UserT } from "../types";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { createPost, logout } from "../actions";
 import ProfilePicture from "./ProfilePicture";
 
@@ -49,7 +49,7 @@ export default function SideBar({ user }: {user: UserT}){
 
     const [showLogoutPopover, setShowLogoutPopover] = useState(false)
     const [showNewPostPopover, setShowNewPostPopover] = useState(false)
-    const [postState, postAction, postIsPending] = useActionState(createPost, {})
+    const [postState, postAction, postIsPending] = useActionState(createPost, null)
 
     function toggleLogoutPopup(){
         setShowLogoutPopover(prevState => !prevState)
@@ -58,6 +58,13 @@ export default function SideBar({ user }: {user: UserT}){
     function togglePostPopup(){
         setShowNewPostPopover(prevState => !prevState)
     }
+
+    useEffect(() => {
+        if (!postState) return;
+        if (postState.status === 'success') {
+            togglePostPopup();
+        }
+    }, [postState]);
 
     return (
         <nav className="flex border-t lg:border-t-0 flex-row lg:flex-col h-20 lg:h-screen p-3 pt-6 justify-between border-r border-gray-500 w-full lg:w-[20%] fixed lg:sticky bottom-0 lg:top-0 z-10 bg-black">
@@ -128,7 +135,6 @@ export default function SideBar({ user }: {user: UserT}){
                     <form 
                         action={postAction}
                         className="absolute flex flex-col p-3 w-[90%] lg:w-[60%] h-[60%] bg-black rounded-xl py-2 justify-between"
-                        onSubmit={() => togglePostPopup()}
                     >
                         <div>
                             <button onClick={() => {togglePostPopup()}}>X</button>
@@ -143,11 +149,12 @@ export default function SideBar({ user }: {user: UserT}){
                                 />
                             </div>
                             <div className="flex w-[85%] lg:w-[88%] h-full">
-                                <textarea className="w-full text-2xl p-3 h-full resize-none focus:outline-none" name="contentText" id="contentText" placeholder="Whats happening?" ></textarea>
+                                <textarea required className="w-full text-2xl p-3 h-full resize-none focus:outline-none" name="contentText" id="contentText" placeholder="Whats happening?"></textarea>
                             </div>
                         </div>
-                        <div className="border-t border-t-gray-800 pt-3 flex justify-end">
-                            <button type="submit" className="bg-white px-6 py-3 text-black font-bold rounded-full">Post</button>
+                        <div className="border-t border-t-gray-800 pt-3 flex justify-end flex-col items-end">
+                            { postState?.status == 'error' && <p className="text-red-500 self-center">{ postState.error }</p>}
+                            <button disabled={postIsPending} type="submit" className="bg-white px-6 py-3 text-black font-bold rounded-full disabled:opacity-50">Post</button>
                         </div>
                     </form>
                 </div>

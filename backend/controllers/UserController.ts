@@ -8,14 +8,14 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 
 export async function editProfile(req: Request, res: Response){
     try {
-        const { userId, displayName, bio, profilePicture, background_image } = req.body
+        const { userId, displayName, bio, profilePicture, backgroundImage } = req.body
         const query = `
             UPDATE users
             SET display_name = $2, bio = $3, profile_picture = $4, background_image = $5
             WHERE id = $1
         `
 
-        const { rows } = await db.query(query, [ userId, displayName, bio, profilePicture, background_image ])
+        const { rows } = await db.query(query, [ userId, displayName, bio, profilePicture, backgroundImage ])
 
         return res.status(200).json(rows)
     }

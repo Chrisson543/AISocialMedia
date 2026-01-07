@@ -27,9 +27,9 @@ export async function editProfile(
         const displayName = formData.get("display-name") as string
         const bio = formData.get("bio") as string
         const profilePicture = formData.get("profile-picture") as string
-        const backgroundeImage = formData.get("background_image") as string
+        const backgroundImage = formData.get("background-image") as string
 
-        if(!displayName){
+        if(!displayName.trim()){
             return "Invalid Display Name"
         }
 
@@ -40,7 +40,7 @@ export async function editProfile(
                 displayName,
                 bio,
                 profilePicture, 
-                backgroundeImage
+                backgroundImage
             }
         }) 
 
@@ -62,15 +62,15 @@ export async function createAccount(
     const displayName = formData.get("display-name") as string
     const password = formData.get("password") as string
 
-    if(!username){
+    if(!username.trim()){
         return "Invalid Username"
     }
 
-    if(!displayName){
+    if(!displayName.trim()){
         return "Invalid Display Name"
     }
 
-    if(!password){
+    if(!password.trim()){
         return "Invalid Password"
     }
 
@@ -98,11 +98,11 @@ export async function signIn(
     const username = formData.get("username") as string
     const password = formData.get("password") as string
 
-    if(!username){
+    if(!username.trim()){
         return "Invalid Username"
     }
 
-    if(!password){
+    if(!password.trim()){
         return "Invalid Password"
     }
 
@@ -191,13 +191,17 @@ export async function removeLike(
 }
 
 export async function createPost(
-    prevState: { error?: string},
+    prevState: any,
     formData: FormData
 ){
     "use server"
     try{
         // userId, contentText, contentImage
         const contentText = formData.get("contentText") as string
+
+        if(!contentText.trim()){
+            return {status: 'error', error: "Post cannot be empty"}
+        }
 
         const user = await getUser();
         const res = await apiFetch<any>('/posts/new_post', {
@@ -211,17 +215,17 @@ export async function createPost(
         revalidatePath("/")
         revalidatePath(`/${user.username}`)
 
-        return res
+        return {status: 'success'}
     }
     catch(error: any){
-        console.log(error)
         console.log("error: ", error.message)
 
-        return {error: error.message}
+        return {status: 'error', submittedAt: Date.now(), error: error.message}
     }
 }
 
 export async function deletePost(
+    prevState: any,
     formData: FormData
 ){
     "use server"

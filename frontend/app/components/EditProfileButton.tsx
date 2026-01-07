@@ -75,7 +75,7 @@ export default function EditProfileButton(
                                 <p className="italic text-gray-400 text-center">Please enter a valid image url or a blank image will be used!</p>
                             </div>
                             { state && <p className="text-red-500">{ state }</p>}
-                            <button disabled={pending} className="bg-white text-black py-3 px-6 rounded-full font-bold">{pending ? 'Saving...' : 'Save'}</button>
+                            <button disabled={pending} className="bg-white text-black py-3 px-6 rounded-full font-bold disabled:opacity-50">Save</button>
                         </form>
                     </div>
                     <div onClick={() => {togglePopover()}} className="fixed w-full h-full bg-white opacity-20 top-0 z-5"></div>

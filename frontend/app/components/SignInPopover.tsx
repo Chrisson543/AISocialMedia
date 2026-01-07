@@ -33,7 +33,7 @@ export default function SignInPopover({toggleSignInPopover}: {toggleSignInPopove
                         defaultValue={"GeneralAccount"}
                     />
                     { state && <p className="text-red-500">{ state }</p>}
-                    <button disabled={pending} className="bg-white text-black py-3 px-6 rounded-full font-bold">Sign In</button>
+                    <button disabled={pending} className="bg-white text-black py-3 px-6 rounded-full font-bold disabled:opacity-50">Sign In</button>
                 </form>
             </div>
             <div onClick={() => {toggleSignInPopover()}} className="fixed w-full h-full bg-white opacity-20 top-0 z-5"></div>

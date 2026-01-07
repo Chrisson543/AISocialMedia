@@ -3,7 +3,7 @@
 import { PostT, UserT } from "@/app/types"
 import optionIcon from '@/app/assets/icons/option-white.png';
 import Icon from "../Icon";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { deletePost } from "@/app/actions";
 
 export default function DeletePostButton(
@@ -15,6 +15,7 @@ export default function DeletePostButton(
 ){
 
     const [showDelete, setShowDelete] = useState(false)
+    const [state, action, pending] = useActionState(deletePost, null)
 
     function toggleDelete(){
         setShowDelete(prevState => !prevState)
@@ -30,9 +31,9 @@ export default function DeletePostButton(
                 showDelete &&
                 <div className="relative">
                     <div onClick={() => {toggleDelete()}} className="fixed left-0 top-0 w-screen h-screen z-30 bg-white opacity-8"></div>
-                    <form action={deletePost} className="absolute -top-15 right-0 bg-black z-40 rounded-xl">
+                    <form action={action} className="absolute -top-15 right-0 bg-black z-40 rounded-xl">
                         <input type="hidden" name="postId" value={props.id} />
-                        <button className="py-3 px-6 w-35 border-white border rounded-xl">
+                        <button disabled={pending} className="py-3 px-6 w-35 border-white border rounded-xl disabled:opacity-50">
                             <p>Delete post</p>
                         </button>
                     </form>
