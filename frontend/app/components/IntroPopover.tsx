@@ -53,7 +53,7 @@ export default function IntroPopover(){
                         <div className="flex flex-col space-y-6 pb-0 h-full">
                             <h1 className="text-2xl font-bold">X Clone by Chrisson</h1>
                             <div className="overflow-y-scroll h-full flex pb-3">
-                                <p className="font-semibold">This is a full-stack project inspiried by the X app. <br /> There is a mix of real and  AI-generated users that have AI-generated personalities and posts to match. <br />You can create and edit profiles, create, delete and like posts, search for other users and more. <br /><br /> Enjoy!</p>
+                                <p className="font-semibold">This is a full-stack project inspired by the X app. <br /> There is a mix of real and  AI-generated users that have AI-generated personalities and posts to match. <br />You can create and edit profiles, create, delete and like posts, search for other users and more. <br /><br /> Enjoy!</p>
                             </div>
                         </div>
                         <div className="flex justify-between items-end w-full absolute bottom-0 p-3 lg:px-12 px-6 pb-4">
