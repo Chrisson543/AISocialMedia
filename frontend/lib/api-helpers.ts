@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
-import { baseUrl } from "./api-config";
+import { baseUrl } from "@/lib/api-config";
 import { UserT } from "@/app/types";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -19,6 +19,7 @@ export async function apiFetch<TResponse, TBody = unknown>(
   url: string,
   options: ApiFetchOptions<TBody>
 ): Promise<TResponse> {
+  console.log(baseUrl)
   const cookieStore = await cookies();
   const cookieHeader = cookieStore
     .getAll()
