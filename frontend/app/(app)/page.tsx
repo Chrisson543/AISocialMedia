@@ -3,6 +3,7 @@ import Tabs from "@/app/components/Tabs";
 import { PostT } from "@/app/types";
 import { apiFetch, getUser } from "@/lib/api-helpers";
 import { JSX } from "react";
+import IntroPopover from "../components/IntroPopover";
 
 export default async function Home() {
 
@@ -38,8 +39,9 @@ export default async function Home() {
   }
   
   return (
-    <div className="flex w-full h-full">
-        <Tabs tabViews={tabViews}/>
+    <div className="flex w-full h-full relative ">
+      <Tabs tabViews={tabViews}/>
+      <IntroPopover />
     </div>
   );
 }

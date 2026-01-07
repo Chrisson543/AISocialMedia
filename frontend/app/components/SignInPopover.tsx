@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useActionState } from "react";
+import { FormEvent, useActionState, useState } from "react";
 import { signIn } from "../actions";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -8,6 +8,10 @@ export default function SignInPopover({toggleSignInPopover}: {toggleSignInPopove
     //username, display name, profile picture, bio, background image
 
     const [state, action, pending] = useActionState(signIn, null);
+
+    const [username, setUsername] = useState("GeneralAccount");
+    const [password, setPassword] = useState("GeneralAccount");
+
 
     return (
         <div className="fixed w-full h-full flex items-center justify-center">
@@ -22,7 +26,8 @@ export default function SignInPopover({toggleSignInPopover}: {toggleSignInPopove
                         name="username"
                         type="text" 
                         placeholder="Username" 
-                        defaultValue={"GeneralAccount"}
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
                     />
                     <input 
                         required 
@@ -30,7 +35,8 @@ export default function SignInPopover({toggleSignInPopover}: {toggleSignInPopove
                         name="password"
                         type="password" 
                         placeholder="Password"
-                        defaultValue={"GeneralAccount"}
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                     />
                     { state && <p className="text-red-500">{ state }</p>}
                     <button disabled={pending} className="bg-white text-black py-3 px-6 rounded-full font-bold disabled:opacity-50">Sign In</button>
