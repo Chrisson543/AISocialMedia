@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { db } from '../db';
 import { checkPasswordCorrect, checkUsernameExists } from '../services/authservice'
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { JwtPayloadT } from '../types/jwt.types'
 

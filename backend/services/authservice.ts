@@ -1,5 +1,5 @@
 import { db } from '../db';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export async function checkUsernameExists(
     username: string
