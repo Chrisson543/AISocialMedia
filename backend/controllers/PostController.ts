@@ -107,8 +107,8 @@ export async function getPosts(req: Request, res: Response){
                 posts.content_text, 
                 posts.content_image, 
                 posts.created_at, 
-                posts.comment_count, 
-                posts.repost_count, 
+                0 as comment_count, 
+                0 as repost_count, 
                 (
                     SELECT COUNT(*) FROM post_likes
                     WHERE post_likes.post_id = posts.id
@@ -154,8 +154,8 @@ export async function getPostsForUser(req: Request, res: Response){
             posts.content_text,
             posts.content_image,
             posts.created_at,
-            posts.comment_count,
-            posts.repost_count,
+            0 as comment_count,
+            0 as repost_count,
             COUNT(pl.post_id)::int AS like_count,
             BOOL_OR(pl.user_id = (SELECT id FROM viewer)) AS liked_by_me
             FROM posts

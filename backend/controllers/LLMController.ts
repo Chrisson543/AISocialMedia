@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createAIUserF, getNRandomAIUsersF, getRandomAIUserF } from "../services/userService";
-import { createNewAIPostF } from "../services/postService";
+import { createNewAIPostF, createNewPostF } from "../services/postService";
 import { getNRandomPersonaTypes, getRandomPersonaTypes } from '../helpers/llmHelpers'
 
 export async function generateAIUser(req: Request, res: Response){
@@ -325,7 +325,7 @@ export async function generateNAIPosts(req: Request, res: Response) {
         const aiPostText = data.choices[0].message.content as string;
 
         // store post for this user
-        const newPost = await createNewAIPostF(user.id, aiPostText);
+        const newPost = await createNewPostF(user.id, aiPostText);
         return newPost;
       })
     );
