@@ -20,11 +20,9 @@ app.use(cookieParser());
 
 app.use('/auth', AuthRoutes)
 
-app.use(auth)
-
-app.use('/users', UserRoutes)
-app.use('/posts', PostRoutes)
-app.use('/llm', LLMRoutes)
+app.use('/users', auth, UserRoutes)
+app.use('/posts', auth, PostRoutes)
+app.use('/llm', auth, LLMRoutes)
 
 
 export default app
