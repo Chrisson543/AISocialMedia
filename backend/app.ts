@@ -18,11 +18,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use('/auth', AuthRoutes)
+app.use('/api/auth', AuthRoutes)
 
-app.use('/users', auth, UserRoutes)
-app.use('/posts', auth, PostRoutes)
-app.use('/llm', auth, LLMRoutes)
+app.use('/api/users', auth, UserRoutes)
+app.use('/api/posts', auth, PostRoutes)
+app.use('/api/llm', auth, LLMRoutes)
 
 
 export default app
