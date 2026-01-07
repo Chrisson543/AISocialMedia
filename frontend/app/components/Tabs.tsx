@@ -8,9 +8,6 @@ type TabViews = {name: string, items: (JSX.Element | null)[]}[]
 export default function Tabs({tabViews}: {tabViews: TabViews}){
     
     
-    type TabViewsKey = keyof typeof tabViews;
-    const firstTabName = Object.keys(tabViews)[0]
-    const tabNames = tabViews.map(view => view.name)
     const [selectedView, setSelectedView] = useState<string>(tabViews[0].name)
     
     return (

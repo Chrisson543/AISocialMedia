@@ -1,6 +1,5 @@
 export interface PostT {
-    post_id: string,
-    id?: string,
+    id: string,
     user_id: string,
     username: string,
     display_name: string,
@@ -10,7 +9,8 @@ export interface PostT {
     content_image?: string,
     comment_count: string,
     repost_count: string,
-    like_count: string
+    like_count: string,
+    liked_by_me: boolean
 }
 
 export interface UserT {
@@ -23,4 +23,5 @@ export interface UserT {
     follower_count: number,
     following_count: number
     background_image: string
+    followed_by_me?: boolean
 }

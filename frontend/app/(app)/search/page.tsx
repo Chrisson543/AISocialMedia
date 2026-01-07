@@ -1,12 +1,12 @@
 "use client";
 
 import { UserT } from "@/app/types";
-import { baseUrl } from "@/lib/api-config";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react"
 import BlankPfp from '../../assets/blank_pfp.png';
 import Link from "next/link";
+import ProfilePicture from "@/app/components/ProfilePicture";
 
 export default function Page(){
     const [searchTerm, setSearchTerm] = useState('');
@@ -29,10 +29,14 @@ export default function Page(){
 
                 if (!searchTerm) return
 
-                const res = await fetch(`${baseUrl}/users/search/${searchTerm}`, { signal });
-                const data = await res.json()
-                
-                setSearchSuggestions(data)
+                const res = await fetch(`/api/users/search/${encodeURIComponent(searchTerm)}`, {
+                    signal,
+                    cache: "no-store",
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = (await res.json()) as UserT[];
+                setSearchSuggestions(data);
+
             }
             catch (err:any){
                 if (err.name !== "AbortError") {
@@ -59,48 +63,41 @@ export default function Page(){
                     onChange={(e) => {setSearchTerm(e.target.value)}}
                     className="border border-white rounded-full p-3 w-full"
                 />
-                <div>
-                    {searchSuggestions.map(user => {
-                        return(
-                            <Link href={`/${user.username}`} key={user.username} className="bg-black hover:opacity-80 hover:border flex flex-row w-full p-3 justify-start items-center">
-                                <div className="flex w-auto h-full justify-center mr-3">
-                                    {
-                                        user.profile_picture ? 
-                                        <Image
-                                            src={user.profile_picture}
-                                            alt="pfp"
-                                            width={618}
-                                            height={618}
-                                            className="object-cover h-full max-w-12.5 max-h-12.5 rounded-4xl"
-                                            style={{objectFit: 'cover'}}
-                                        /> :
-                                        <Image
-                                            src={BlankPfp}
-                                            alt="pfp"
-                                            width={618}
-                                            height={618}
-                                            className="object-cover h-full max-w-12.5 max-h-12.5 rounded-4xl"
-                                            style={{objectFit: 'cover'}}
-                                        />
-                                    }
-                                </div>
-                                <div className="flex flex-col w-[80%]">
-                                    <div className="flex justify-between w-full">
-                                        <div className="flex space-x-1 w-[85%]">
-                                            <div className="block space-x-1.5">
-                                                <p className="space-x-1 font-bold">{user.display_name}</p>
-                                                <p className="space-x-1 text-gray-500">
-                                                    @{user.username.replace(/^@/, "")}
-                                                </p>
-                                            </div>
+            </form>
+            <div>
+                {searchSuggestions.map(user => {
+                    return(
+                        <Link href={`/${user.username}`} key={user.username} className="bg-black hover:opacity-80 hover:border flex flex-row w-full p-3 justify-start items-center">
+                            <div className="flex w-auto h-full justify-center mr-3">
+                                <ProfilePicture
+                                    userData={user} 
+                                    className="object-cover h-full max-w-12.5 max-h-12.5 rounded-4xl"
+                                    size={{width: 618, height: 618}} 
+                                    style={{objectFit: 'cover'}}
+                                />
+                            </div>
+                            <div className="flex flex-col w-[80%]">
+                                <div className="flex justify-between w-full">
+                                    <div className="flex space-x-1 w-[85%]">
+                                        <div className="block space-x-1.5">
+                                            <p className="space-x-1 font-bold">{user.display_name}</p>
+                                            <p className="space-x-1 text-gray-500">
+                                                @{user.username.replace(/^@/, "")}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                            </Link>
-                        )
-                    })}
-                </div>
-            </form>
+                            </div>
+                        </Link>
+                    )
+                })}
+                {
+                    searchTerm !== "" && searchSuggestions.length == 0 && 
+                    <div className="flex w-full justify-center p-6">
+                        <p>No results</p>
+                    </div>
+                }
+            </div>
         </div>
     )
 }

@@ -1,15 +1,25 @@
 import express from 'express';
-import { createNewPost, getPosts, getPostsForUser } from '../controllers/PostController';
+import { createNewPost, deletePost, getPosts, getPostsForUser, likePost, removePostLike } from '../controllers/PostController';
 
 const router = express.Router();
 
 // POST /posts
-router.post('/', createNewPost)
+router.post('/new_post', createNewPost)
 
 // GET /posts
-router.get('/', getPosts)
+router.post('/get_posts', getPosts)
+
+// POST /posts/like
+router.post('/like', likePost)
+
+// POST /posts/removeLike
+router.post('/removeLike', removePostLike)
+
+// GET /posts/delete
+router.post('/delete', deletePost)
 
 // GET /posts/:username
-router.get('/:username', getPostsForUser)
+router.post('/:author', getPostsForUser)
+
 
 export default router;
