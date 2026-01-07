@@ -72,14 +72,14 @@ export default function SideBar({ user }: {user: UserT}){
                 {
                     navbarItems.map(item => {
                         return (
-                            <Link href={item.path} key={item.name} className="flex lg:space-x-4 items-center hover:opacity-80">
+                            <Link href={item.path} key={item.name} className={`p-3 flex lg:space-x-4 items-center hover:opacity-80`}>
                                 <Icon path={item.icon} size={item.size}/> 
                                 <p className="text-2xl hidden lg:block">{item.name}</p>
                             </Link>
                         )
                     })
                 }
-                <button onClick={() => {togglePostPopup()}} className="lg:hidden">
+                <button onClick={() => {togglePostPopup()}} className="lg:hidden p-3">
                     <Icon path={newPost} size={{width: iconSize,height: iconSize}}/>
                 </button>
             </div>
