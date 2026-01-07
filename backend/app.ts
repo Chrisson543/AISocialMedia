@@ -18,6 +18,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.get('/health', (req, res) => {
+  res.json({ ok: true });
+});
+
+
 app.use('/auth', AuthRoutes)
 
 app.use(auth)
