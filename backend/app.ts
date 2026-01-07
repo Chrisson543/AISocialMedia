@@ -22,7 +22,7 @@ app.use('/api/auth', AuthRoutes)
 
 app.use('/api/users', auth, UserRoutes)
 app.use('/api/posts', auth, PostRoutes)
-app.use('/api/llm', auth, LLMRoutes)
+// app.use('/api/llm', auth, LLMRoutes)
 
 
 export default app
