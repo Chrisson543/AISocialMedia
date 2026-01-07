@@ -1,10 +1,8 @@
-// api/index.ts
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import serverlessHttp from 'serverless-http';
-import app from '../src/app';
+// index.ts  (for local development only)
+import app from './app';
 
-const handler = serverlessHttp(app);
+const port = process.env.PORT || 4000;
 
-export default (req: VercelRequest, res: VercelResponse) => {
-  return handler(req as any, res as any);
-};
+app.listen(port, () => {
+  console.log('app is listening on port', port);
+});

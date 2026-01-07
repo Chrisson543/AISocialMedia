@@ -9,10 +9,9 @@ import { auth } from './middleware/auth'
 import cookieParser from "cookie-parser";
 
 const app = express();
-const port = 4000
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_ORIGIN,
   credentials: true
 }));
 app.use(express.json());
@@ -28,6 +27,4 @@ app.use('/posts', PostRoutes)
 app.use('/llm', LLMRoutes)
 
 
-app.listen(port, () => {
-    console.log('app is listening on port ', port)
-})
+export default app
