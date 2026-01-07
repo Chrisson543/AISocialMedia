@@ -20,7 +20,7 @@ export default function LoginClient(){
     return (
         <main className="w-full h-full flex flex-col lg:flex-row">
             <div className="lg:w-[50%] text-5xl lg:text-9xl items-center justify-center flex font-bold p-10 lg:p-20">
-                X
+                C
             </div>
             <div className="w-full lg:w-[50%] items-center flex lg:justify-start flex-col px-20 py-0 lg:p-20">
                 <h1 className="text-5xl font-bold py-6">Happening now</h1>
