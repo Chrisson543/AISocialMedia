@@ -43,8 +43,8 @@ export default function IntroPopover(){
 
     return (
         <div>
-              <button onClick={() => {togglePopover()}} className="absolute top-5 right-5 ">
-                <Icon path={infoIcon} size={{width: 'auto', height: 30}} />
+              <button onClick={() => {togglePopover()}} className="absolute top-3 right-5 z-50">
+                <Icon path={infoIcon} size={{width: 'auto', height: 25}} />
               </button>
             {
                 showPopover &&
@@ -52,7 +52,7 @@ export default function IntroPopover(){
                     <div className="relative flex w-[90%] lg:w-[40%] pb-15 z-30 bg-black rounded-4xl px-12 py-8 flex-col items-center">
                         <div className="flex flex-col space-y-6 pb-0 h-full">
                             <h1 className="text-2xl font-bold">X Clone by Chrisson</h1>
-                            <div className="overflow-y-scroll h-full flex pb-3">
+                            <div className="overflow-y-auto h-full flex pb-3">
                                 <p className="font-semibold">This is a full-stack project inspired by the X app. <br /> There is a mix of real and  AI-generated users that have AI-generated personalities and posts to match. <br />You can create and edit profiles, create, delete and like posts, search for other users and more. <br /><br /> Enjoy!</p>
                             </div>
                         </div>

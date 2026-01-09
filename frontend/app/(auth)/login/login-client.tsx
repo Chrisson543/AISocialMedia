@@ -22,7 +22,7 @@ export default function LoginClient(){
             <div className="lg:w-[50%] text-5xl lg:text-9xl items-center justify-center flex font-bold p-10 lg:p-20">
                 C
             </div>
-            <div className="w-full lg:w-[50%] items-center flex lg:justify-start flex-col px-20 py-0 lg:p-20">
+            <div className="w-full lg:w-[50%] items-center flex lg:justify-center flex-col px-20 py-0 lg:p-20">
                 <h1 className="text-5xl font-bold py-6">Happening now</h1>
                 <h2 className="text-4xl font-bold py-6">Join today.</h2>
                 <div className="flex flex-col space-y-6 py-15">

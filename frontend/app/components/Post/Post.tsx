@@ -18,8 +18,8 @@ export default async function Post({ ...props}: PostT){
     const currentUser = await getUser()
 
     return (
-        <div className="bg-black flex flex-row p-4 w-full border-y border-gray-600">
-            <Link href={`/${props.username}`} className="flex w-[12%] justify-center mr-3">
+        <div className="bg-black flex flex-row p-2 w-full border-y border-gray-800">
+            <Link href={`/${props.username}`} className="flex w-[10%] justify-center mr-3">
                 <ProfilePicture
                     userData={props} 
                     className="object-cover max-w-12.5 max-h-12.5 rounded-4xl"
@@ -40,7 +40,7 @@ export default async function Post({ ...props}: PostT){
                     </div>
                     <DeletePostButton props={props} currentUser={currentUser} />
                 </div>
-                <div className="mt-1 pr-7 w-full">
+                <div className="mt-1 pr-2 lg:pr-5 w-full">
                     <p>{props.content_text}</p>
                     {
                         props.content_image && 

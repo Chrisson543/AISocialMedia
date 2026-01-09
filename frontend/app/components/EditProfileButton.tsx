@@ -25,7 +25,7 @@ export default function EditProfileButton(
             {
                 showPopover && 
                 <div className="fixed w-screen h-screen left-0 top-0 z-50 flex items-center justify-center">
-                    <div className="relative flex lg:w-[70%] w-[90%] max-h-[70%] z-10 bg-black rounded-4xl py-12 px-6 flex-col items-center overflow-y-scroll">
+                    <div className="relative flex lg:w-[70%] w-[90%] max-h-[70%] z-10 bg-black rounded-4xl py-12 px-6 flex-col items-center overflow-y-auto">
                         <button onClick={() => {togglePopover()}} className="absolute top-5 left-5 font-bold">X</button>
                         <h1 className="text-3xl font-bold">Edit your profile</h1>
                         <form action={action} className="flex flex-col space-y-6 mt-5 w-full items-center justify-center">

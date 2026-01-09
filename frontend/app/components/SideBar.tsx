@@ -67,7 +67,7 @@ export default function SideBar({ user }: {user: UserT}){
     }, [postState]);
 
     return (
-        <nav className="flex border-t lg:border-t-0 flex-row lg:flex-col h-20 lg:h-screen p-3 pt-6 justify-between border-r border-gray-500 w-full lg:w-[20%] fixed lg:sticky bottom-0 lg:top-0 z-10 bg-black">
+        <nav className="flex border-t lg:border-t-0 flex-row lg:flex-col h-20 lg:h-screen p-3 pt-6 justify-between border-r border-gray-800 w-full lg:w-[20%] fixed lg:sticky bottom-0 lg:top-0 z-10 bg-black">
             <div className="lg:space-y-3 flex flex-row lg:flex-col justify-around items-center lg:items-start w-[85%] lg:w-full lg:px-6">
                 {
                     navbarItems.map(item => {

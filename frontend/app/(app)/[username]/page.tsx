@@ -57,13 +57,13 @@ export default async function Page({
         ]
 
     return(
-        <div className="flex flex-col w-full h-full bg-black">
+        <div className="flex flex-col w-full h-full bg-black overflow-y-auto">
             <div className="flex flex-col w-full">
                 <div className="flex flex-col w-full">
                     <div className="w-full flex flex-row items-center space-x-3 fixed bg-black p-3 z-20">
                         <BackButton />
                         <div className="ml-3">
-                            <h1 className="text-3xl font-bold">{userData.display_name}</h1>
+                            <h1 className="text-2xl font-bold">{userData.display_name}</h1>
                             <p className="text-gray-600">{userPosts.length} posts</p>
                         </div>
                     </div>
@@ -91,7 +91,7 @@ export default async function Page({
                         </div>
                     </div>
                     <div className="flex flex-col w-full px-3 pt-7">
-                        <h1 className="text-3xl font-bold">{userData.display_name}</h1>
+                        <h1 className="text-2xl font-bold">{userData.display_name}</h1>
                         <p className="text-gray-500">@{userData.username}</p>
                         <p>{userData.bio}</p>
                         <div className="text-[#878787] my-2">
@@ -113,7 +113,7 @@ export default async function Page({
                     </div>
                 </div>
             </div>
-                <Tabs tabViews={tabViews} />
+            <Tabs tabViews={tabViews} />
         </div>
     )
 }   

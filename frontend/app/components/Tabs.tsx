@@ -11,8 +11,8 @@ export default function Tabs({tabViews}: {tabViews: TabViews}){
     const [selectedView, setSelectedView] = useState<string>(tabViews[0].name)
     
     return (
-        <div className="flex flex-col h-full w-full">
-            <div className="flex space-x-5 font-bold p-6 text-gray-500">
+        <div className="flex flex-col h-full w-full relative">
+            <div className="flex absolute space-x-5 font-bold px-12 py-4 pb-0 text-gray-500 bg-black w-full z-10 top-0">
                 {
                     tabViews.map(view => {
                         return (
@@ -23,7 +23,7 @@ export default function Tabs({tabViews}: {tabViews: TabViews}){
                     })
                 }
             </div>
-            <div className="flex flex-col h-full w-full">
+            <div className="flex flex-col h-full w-full mt-11">
                 {
                     tabViews.find(view => view.name == selectedView)!.items.length > 0 ? tabViews.find(view => view.name == selectedView)!.items : <div className="flex w-full h-full items-center justify-center font-bold text-2xl">No Posts</div>
                 }

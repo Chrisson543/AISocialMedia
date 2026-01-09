@@ -15,7 +15,7 @@ export default function SignInPopover({toggleSignInPopover}: {toggleSignInPopove
 
     return (
         <div className="fixed w-full h-full flex items-center justify-center">
-            <div className="relative flex w-[70%] z-10 bg-black rounded-4xl py-12 px-6 flex-col items-center overflow-y-scroll">
+            <div className="relative flex w-[85%] lg:w-[50%] z-10 bg-black rounded-4xl py-12 px-6 flex-col items-center overflow-y-auto">
                 <button onClick={() => {toggleSignInPopover()}} className="absolute top-5 left-5 font-bold">X</button>
                 <h1 className="text-3xl font-bold text-center">Sign into your account</h1>
                 <p className="italic py-2 text-gray-400">General account username and password: GeneralAccount</p>
