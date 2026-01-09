@@ -53,8 +53,8 @@ export default function Page(){
     }, [searchTerm])
 
     return (
-        <div className="w-full p-3">
-            <form onSubmit={handleSubmit}>
+        <div className="w-full flex flex-col h-full">
+            <form onSubmit={handleSubmit} className="fixed w-full bg-black p-3">
                 <input 
                     name="search-term" 
                     type="text" 
@@ -64,7 +64,7 @@ export default function Page(){
                     className="border border-white rounded-full p-3 w-full"
                 />
             </form>
-            <div>
+            <div className="flex flex-col w-full h-full pt-18.5">
                 {searchSuggestions.map(user => {
                     return(
                         <Link href={`/${user.username}`} key={user.username} className="bg-black hover:opacity-80 hover:border flex flex-row w-full p-3 justify-start items-center">

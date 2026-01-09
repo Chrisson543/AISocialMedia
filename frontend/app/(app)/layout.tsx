@@ -10,9 +10,9 @@ export default async function Layout({
     const user = await getUser();
 
   return (
-    <div className="flex w-full h-full relative">
+    <div className="flex w-full h-full relative text-white">
       <SideBar user={user}/>
-      <main className="flex flex-col w-full lg:w-[50%] items-center h-full pb-20 lg:pb-0">
+      <main className="flex flex-col w-full lg:w-[50%] items-center h-full pb-20 lg:pb-0 overflow-y-auto">
         {children}
       </main>
     </div>

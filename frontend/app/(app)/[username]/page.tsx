@@ -57,7 +57,7 @@ export default async function Page({
         ]
 
     return(
-        <div className="flex flex-col w-full h-full bg-black overflow-y-auto">
+        <div className="flex flex-col w-full h-full bg-black">
             <div className="flex flex-col w-full">
                 <div className="flex flex-col w-full">
                     <div className="w-full flex flex-row items-center space-x-3 fixed bg-black p-3 z-20">

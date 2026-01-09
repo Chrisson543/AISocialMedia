@@ -41,7 +41,7 @@ export default async function Followers({params}: {params: Promise<{username: st
                     <p className="text-gray-600">@{userData.username}</p>
                 </div>
             </div>
-            <div className="flex flex-col overflow-y-auto pt-18">
+            <div className="flex flex-col pt-18">
                 {
                     followers.map(follower => 
                         <Link href={`/${follower.username}`} className="flex flex-row p-4 w-full hover:border border-y border-gray-800 cursor-pointer" key={follower.id}>

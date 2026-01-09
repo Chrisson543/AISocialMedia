@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import linkedinIcon from "@/app/assets/icons/linkedin.png"
 import githubIcon from "@/app/assets/icons/github.png"
 import emailIcon from "@/app/assets/icons/email.png"
@@ -41,6 +41,18 @@ export default function IntroPopover(){
 
     ]
 
+  useEffect(() => {
+    if (showPopover) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = ""; 
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showPopover]);
+
     return (
         <div>
               <button onClick={() => {togglePopover()}} className="absolute top-3 right-5 z-50">
@@ -52,7 +64,7 @@ export default function IntroPopover(){
                     <div className="relative flex w-[90%] lg:w-[40%] pb-15 z-30 bg-black rounded-4xl px-12 py-8 flex-col items-center">
                         <div className="flex flex-col space-y-6 pb-0 h-full">
                             <h1 className="text-2xl font-bold">X Clone by Chrisson</h1>
-                            <div className="overflow-y-auto h-full flex pb-3">
+                            <div className="h-full flex pb-3">
                                 <p className="font-semibold">This is a full-stack project inspired by the X app. <br /> There is a mix of real and  AI-generated users that have AI-generated personalities and posts to match. <br />You can create and edit profiles, create, delete and like posts, search for other users and more. <br /><br /> Enjoy!</p>
                             </div>
                         </div>

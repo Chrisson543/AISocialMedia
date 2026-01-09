@@ -39,7 +39,7 @@ export default async function Home() {
   }
   
   return (
-    <div className="flex w-full h-full relative overflow-y-auto">
+    <div className="flex w-full h-full relative">
       <Tabs tabViews={tabViews}/>
       <IntroPopover />
     </div>

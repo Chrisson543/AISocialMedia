@@ -11,7 +11,7 @@ export default function CreateAccountPopover({toggleCreatePopover}: {toggleCreat
 
     return (
         <div className="fixed w-full h-full flex items-center justify-center">
-            <div className="relative flex w-[85%] lg:w-[50%] z-10 bg-black rounded-4xl py-12 px-6 flex-col items-center overflow-y-auto">
+            <div className="relative flex w-[85%] lg:w-[50%] z-10 bg-black rounded-4xl py-12 px-6 flex-col items-center">
                 <button onClick={() => {toggleCreatePopover()}} className="absolute top-5 left-5 font-bold">X</button>
                 <h1 className="text-3xl font-bold text-center">Create your account</h1>
                 <form action={action} className="flex flex-col space-y-6 mt-5 w-full items-center">
