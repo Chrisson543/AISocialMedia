@@ -20,9 +20,33 @@ export async function createUser(req: Request, res: Response){
         const password_hash = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS)!)
 
         const createUserQuery = `
-            INSERT INTO users (username, display_name, password_hash)
-            VALUES ($1, $2, $3)
-            RETURNING id, username, display_name, profile_picture
+            WITH new_user AS (
+                INSERT INTO users (username, display_name, password_hash)
+                VALUES ($1, $2, $3)
+                RETURNING id, username, display_name, profile_picture
+            ),
+            insert_follow AS (
+                INSERT INTO follow_list (follower_id, followee_id)
+                SELECT 
+                    new_user.id,
+                    '477b323a-d2a4-484e-b4c6-c5c0c9b78e05'
+                FROM new_user
+                RETURNING follower_id
+            ),
+            insert_following AS (
+                INSERT INTO follow_list (followee_id, follower_id)
+                SELECT 
+                    new_user.id,
+                    '477b323a-d2a4-484e-b4c6-c5c0c9b78e05'
+                FROM new_user
+                RETURNING followee_id
+            )
+            SELECT
+                new_user.id,
+                new_user.username,
+                new_user.display_name,
+                new_user.profile_picture
+            FROM new_user;
         `
 
         const { rows } = await db.query(createUserQuery, [username, displayName, password_hash])

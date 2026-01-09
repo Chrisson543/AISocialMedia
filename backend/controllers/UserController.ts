@@ -138,6 +138,7 @@ export async function getUserFollowersByUsername(req: Request, res: Response){
             FROM users u
             JOIN follow_list f ON f.follower_id = u.id
             WHERE f.followee_id = (SELECT users.id FROM users WHERE username = $1)
+            ORDER BY f.created_at DESC
         `
         const { rows } = await db.query(query, [username, userId])
 
@@ -164,6 +165,7 @@ export async function getUserFollowingByUsername(req: Request, res: Response){
             FROM users u
             JOIN follow_list f ON f.followee_id = u.id
             WHERE f.follower_id = (SELECT users.id FROM users WHERE username = $1)
+            ORDER BY f.created_at DESC
         `
         const { rows } = await db.query(query, [username, userId])
 
