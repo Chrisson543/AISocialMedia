@@ -36,7 +36,7 @@ export default function IntroPopover(){
         {
             name: 'portfolio',
             icon: portfolioIcon,
-            link: 'https://chrisson.netlify.app/'
+            link: 'https://chrisson.vercel.app/'
         },
 
     ]
